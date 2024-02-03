@@ -12,3 +12,12 @@ aplicação.
 
 Essa estrutura permite que a aplicação seja mais mantida, testada e potencializa que quaisquer mudanças de tecnologias
 na interface de usuário ou na persistência de dados afetem minimamente a lógica de negócio central.
+
+---
+
+## Swagger
+
+- [Swagger - Local](http://localhost:8080/swagger-ui/index.html)
+- [Api - Docs](http://localhost:8080/v3/api-docs)
+
+---
