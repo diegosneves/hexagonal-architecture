@@ -26,8 +26,8 @@ public class ProductFactory {
      * @param productPrice Preço do produto.
      * @return Retorna a nova instância do {@link Product Produto}.
      */
-    public static Product create(String name, ProductStatus status, Double productPrice) {
-        return new Product(UUID.randomUUID().toString(), name, status, productPrice);
+    public static Product create(String name, Double productPrice) {
+        return new Product(UUID.randomUUID().toString(), name, productPrice);
     }
 
 }
