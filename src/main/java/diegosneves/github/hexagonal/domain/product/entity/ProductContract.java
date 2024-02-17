@@ -1,6 +1,7 @@
 package diegosneves.github.hexagonal.domain.product.entity;
 
 import diegosneves.github.hexagonal.enums.ProductStatus;
+import diegosneves.github.hexagonal.exceptions.ProductException;
 
 /**
  * A interface {@link ProductContract} define o contrato para um objeto do tipo Produto.
@@ -12,57 +13,55 @@ import diegosneves.github.hexagonal.enums.ProductStatus;
 public interface ProductContract {
 
     /**
-     * Determina se o produto é válido.
+     * Verifica se o objeto {@link Product Produto} é válido.
      *
-     * @return {@code true} se o produto for válido, {@code false} caso contrário.
+     * @return {@link Boolean#TRUE true} se o objeto Produto for válido, {@link Boolean#FALSE false} caso contrário.
+     * @throws ProductException se qualquer validação falhar.
      */
-    Boolean isValid();
+    Boolean isValid() throws ProductException;
 
     /**
-     * Ativa o produto.
+     * Ativa o {@link Product produto}.
      * <p>
      * Este método é usado para ativar o produto. Uma vez ativado, o produto estará
      * elegível para uso. Não retorna nenhum valor.
      *
-     * @see ProductContract#disable()
+     * @throws ProductException se o preço do produto for menor ou igual a zero.
+     * @see ProductContract#disable() disable
      */
-    void enable();
+    void enable() throws ProductException;
 
     /**
-     * Desativa o produto.
+     * Desativa o {@link Product produto}.
      *
-     * <p>
-     * Este método é utilizado para desativar o produto. Uma vez desativado, o produto não estará mais apto para uso.
-     * A chamada deste método não retorna nenhum valor.
-     * </p>
-     *
-     * @see ProductContract#enable()
+     * @throws ProductException se o preço do produto for maior que zero.
+     * @see ProductContract#enable() enable
      */
-    void disable();
+    void disable() throws ProductException;
 
     /**
-     * Retorna o ID do produto.
+     * Retorna o {@link java.util.UUID ID} do {@link Product produto}.
      *
      * @return O ID do produto como uma String.
      */
     String getId();
 
     /**
-     * Devolve o nome do produto.
+     * Devolve o nome do {@link Product produto}.
      *
      * @return O nome do produto como uma String.
      */
     String getName();
 
     /**
-     * Obtém o status do produto.
+     * Obtém o status do {@link Product produto}.
      *
      * @return O status do produto como um valor de {@link ProductStatus}.
      */
     ProductStatus getStatus();
 
     /**
-     * Obtém o preço do produto.
+     * Obtém o preço do {@link Product produto}.
      *
      * @return O preço do produto como um valor Double.
      */

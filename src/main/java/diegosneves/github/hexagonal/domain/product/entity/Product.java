@@ -27,10 +27,11 @@ public class Product implements ProductContract {
         this.productName = productName;
         this.status = ProductStatus.DISABLE;
         this.productPrice = productPrice;
+        this.isValid();
     }
 
     @Override
-    public Boolean isValid() {
+    public Boolean isValid() throws ProductException {
         if (isNull(this.id) || this.id.isBlank()) {
             throw new ProductException(ExceptionHandler.PRODUCT_ID_SHOULD_NOT_BE_NULL_OR_EMPTY);
         }
@@ -61,7 +62,7 @@ public class Product implements ProductContract {
 }
 
     @Override
-    public void enable() {
+    public void enable() throws ProductException {
         if (this.productPrice <= ZERO) {
             throw new ProductException(ExceptionHandler.PRICE_LESS_THAN_ZERO);
         }
@@ -69,7 +70,7 @@ public class Product implements ProductContract {
     }
 
     @Override
-    public void disable() {
+    public void disable() throws ProductException{
         if (this.productPrice > ZERO) {
             throw new ProductException(ExceptionHandler.PRICE_EQUAL_OR_LESS_THAN_ZERO);
         }
