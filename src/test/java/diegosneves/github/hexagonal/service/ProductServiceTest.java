@@ -2,7 +2,6 @@ package diegosneves.github.hexagonal.service;
 
 import diegosneves.github.hexagonal.domain.product.entity.Product;
 import diegosneves.github.hexagonal.domain.product.entity.ProductContract;
-import diegosneves.github.hexagonal.domain.product.factory.ProductFactory;
 import diegosneves.github.hexagonal.enums.ProductStatus;
 import diegosneves.github.hexagonal.exceptions.ProductException;
 import diegosneves.github.hexagonal.exceptions.handler.ExceptionHandler;
@@ -11,12 +10,21 @@ import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -29,6 +37,9 @@ class ProductServiceTest {
 
     @Mock
     private ProductPersistenceContract persistence;
+
+    @Captor
+    private ArgumentCaptor<Product> productCaptor;
 
     private ProductContract product;
 
@@ -72,13 +83,30 @@ class ProductServiceTest {
     void shouldCreateProductWhenValidProductNameAndProductPriceGiven() {
         String productName = "New Product";
         Double productPrice = 200.0;
+        when(this.persistence.save(any(Product.class))).thenReturn(this.product);
 
         ProductContract result = this.service.create(productName, productPrice);
 
+        verify(this.persistence, times(1)).save(this.productCaptor.capture());
+
         assertNotNull(result);
-        assertEquals(productName, result.getName());
-        assertEquals(productPrice, result.getPrice());
-        assertEquals(ProductStatus.DISABLE, result.getStatus());
+        assertEquals(this.product, result);
+        assertTrue(this.isUUID(this.productCaptor.getValue().getId()));
+        assertEquals(productName, this.productCaptor.getValue().getName());
+        assertEquals(productPrice, this.productCaptor.getValue().getPrice());
+        assertEquals(ProductStatus.DISABLE, this.productCaptor.getValue().getStatus());
+    }
+
+    private boolean isUUID(String uuid) {
+        boolean isUuid = false;
+        try {
+            if (uuid != null && !(uuid.isBlank())) {
+                java.util.UUID.fromString(uuid);
+                isUuid = true;
+            }
+        } catch (Exception ignored) {
+        }
+        return isUuid;
     }
 
     @Test
@@ -105,7 +133,9 @@ class ProductServiceTest {
     }
 
     @Test
-    void shouldEnableProductAndAssertItsStatusIsEnabled(){
+    void shouldEnableProductAndAssertItsStatusIsEnabled() {
+        when(this.persistence.save(this.product)).thenReturn(this.product);
+
         Product enable = (Product) this.service.enable(this.product);
 
         ProductStatus status = enable.getStatus();
@@ -114,7 +144,7 @@ class ProductServiceTest {
     }
 
     @Test
-    void shouldThrowProductExceptionWhenAttemptingToEnableProductWithZeroPrice(){
+    void shouldThrowProductExceptionWhenAttemptingToEnableProductWithZeroPrice() {
         this.product = new Product(UUID, "Produto", 0.0);
 
         Exception exception = assertThrows(ProductException.class, () -> this.service.enable(this.product));
@@ -125,8 +155,9 @@ class ProductServiceTest {
     }
 
     @Test
-    void shouldDisableProductAndAssertItsStatusIsDisable(){
+    void shouldDisableProductAndAssertItsStatusIsDisable() {
         this.product = new Product(UUID, "Produto", 0.0);
+        when(this.persistence.save(this.product)).thenReturn(this.product);
 
         Product disabledProduct = (Product) this.service.disable(this.product);
 
@@ -136,7 +167,7 @@ class ProductServiceTest {
     }
 
     @Test
-    void shouldThrowProductExceptionWhenAttemptingToDisableProductPrice(){
+    void shouldThrowProductExceptionWhenAttemptingToDisableProductPrice() {
 
         Exception exception = assertThrows(ProductException.class, () -> this.service.disable(this.product));
 

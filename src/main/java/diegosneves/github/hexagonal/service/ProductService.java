@@ -1,5 +1,6 @@
 package diegosneves.github.hexagonal.service;
 
+import diegosneves.github.hexagonal.domain.product.entity.Product;
 import diegosneves.github.hexagonal.domain.product.entity.ProductContract;
 import diegosneves.github.hexagonal.domain.product.factory.ProductFactory;
 import diegosneves.github.hexagonal.exceptions.ProductException;
@@ -41,18 +42,19 @@ public class ProductService implements ProductServiceContract {
 
     @Override
     public ProductContract create(String productName, Double productPrice) {
-        return ProductFactory.create(productName, productPrice);
+        Product newProduct = ProductFactory.create(productName, productPrice);
+        return this.persistence.save(newProduct);
     }
 
     @Override
     public ProductContract enable(ProductContract product) {
         product.enable();
-        return product;
+        return this.persistence.save(product);
     }
 
     @Override
     public ProductContract disable(ProductContract product) {
         product.disable();
-        return product;
+        return this.persistence.save(product);
     }
 }
