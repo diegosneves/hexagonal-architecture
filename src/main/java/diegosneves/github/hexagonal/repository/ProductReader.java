@@ -1,14 +1,12 @@
 package diegosneves.github.hexagonal.repository;
 
 import diegosneves.github.hexagonal.domain.product.entity.ProductContract;
-import org.springframework.stereotype.Repository;
 
 /**
  * A interface {@link ProductReader} oferece métodos para obter informações sobre o {@link ProductContract produto}.
  *
  * @author diegoneves
  */
-@Repository
 public interface ProductReader {
 
     /**

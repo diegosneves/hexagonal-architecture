@@ -1,7 +1,6 @@
 package diegosneves.github.hexagonal.repository;
 
 import diegosneves.github.hexagonal.domain.product.entity.ProductContract;
-import org.springframework.stereotype.Repository;
 
 /**
  * A interface {@link  ProductWriter} é um contrato para classes que escrevem dados de produto.
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Repository;
  *
  * @author diegoneves
  */
-@Repository
 public interface ProductWriter {
 
     /**

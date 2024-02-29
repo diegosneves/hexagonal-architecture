@@ -6,8 +6,6 @@ import diegosneves.github.hexagonal.domain.product.factory.ProductFactory;
 import diegosneves.github.hexagonal.exceptions.ProductException;
 import diegosneves.github.hexagonal.exceptions.handler.ExceptionHandler;
 import diegosneves.github.hexagonal.repository.ProductPersistenceContract;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import static java.util.Objects.isNull;
 
@@ -17,7 +15,6 @@ import static java.util.Objects.isNull;
  *
  * @author diegoneves
  */
-@Service
 public class ProductService implements ProductServiceContract {
 
     private final ProductPersistenceContract persistence;
@@ -27,7 +24,6 @@ public class ProductService implements ProductServiceContract {
     *
     * @param persistence Uma instância implementando ProductPersistenceContract que será usada para operações de CRUD
     */
-    @Autowired
     public ProductService(ProductPersistenceContract persistence) {
         this.persistence = persistence;
     }
