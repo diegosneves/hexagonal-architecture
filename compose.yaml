@@ -1,0 +1,15 @@
+services:
+  database:
+    image: "postgres:latest"
+    container_name: hex_postgres_db
+    environment:
+      - POSTGRES_USER=local_user
+      - POSTGRES_DB=local_db
+      - POSTGRES_PASSWORD=local_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-postgres-hex:/var/lib/postgresql/data
+
+volumes:
+  db-postgres-hex:

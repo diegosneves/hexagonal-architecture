@@ -20,7 +20,7 @@ import static java.util.Objects.isNull;
 @Service
 public class ProductService implements ProductServiceContract {
 
-    private ProductPersistenceContract persistence;
+    private final ProductPersistenceContract persistence;
 
     /**
     * O construtor do ProductService onde se define o repositório(permanent storage) que está sendo usado
