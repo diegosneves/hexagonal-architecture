@@ -1,7 +1,7 @@
 server:
   port: 8080
 
-springdoc:
+spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/local_db
     username: local_user
@@ -11,6 +11,7 @@ springdoc:
       ddl-auto: update
     show-sql: true
 
+springdoc:
   swagger-ui:
     path: /swagger-ui.html
 
@@ -18,4 +19,4 @@ logging:
   level:
     org:
     springframework:
-     security: DEBUG
+      security: DEBUG
