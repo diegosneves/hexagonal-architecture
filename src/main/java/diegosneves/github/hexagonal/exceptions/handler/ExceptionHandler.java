@@ -14,6 +14,7 @@ public enum ExceptionHandler {
     PRODUCT_ID_SHOULD_NOT_BE_NULL_OR_EMPTY("O ID do Produto não deve ser vazio ou nulo"),
     PRODUCT_NAME_SHOULD_NOT_BE_NULL_OR_EMPTY("O Nome do Produto não deve ser vazio ou nulo"),
     INVALID_UUID_FORMAT_MESSAGE("O ID do Produto [%s] precisa ser no formato UUID"),
+    PRODUCT_NOT_FOUND("O Produto de ID [%s] não foi encontrado."),
     PRODUCT_STATUS_SHOULD_NOT_BE_NULL("O Status do Produto não deve ser nulo");
 
     private final String message;
