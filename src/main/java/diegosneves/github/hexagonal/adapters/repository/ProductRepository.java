@@ -1,12 +1,12 @@
 package diegosneves.github.hexagonal.adapters.repository;
 
 import diegosneves.github.hexagonal.adapters.model.ProductEntity;
-import diegosneves.github.hexagonal.domain.product.entity.Product;
-import diegosneves.github.hexagonal.domain.product.entity.ProductContract;
-import diegosneves.github.hexagonal.exceptions.ProductException;
-import diegosneves.github.hexagonal.exceptions.handler.ExceptionHandler;
-import diegosneves.github.hexagonal.mapper.MapperStrategy;
-import diegosneves.github.hexagonal.mapper.ProductMapper;
+import diegosneves.github.hexagonal.app.domain.product.entity.Product;
+import diegosneves.github.hexagonal.app.domain.product.entity.ProductContract;
+import diegosneves.github.hexagonal.app.exceptions.ProductException;
+import diegosneves.github.hexagonal.app.exceptions.handler.ExceptionHandler;
+import diegosneves.github.hexagonal.app.mapper.MapperStrategy;
+import diegosneves.github.hexagonal.app.mapper.ProductMapper;
 import org.springframework.data.repository.CrudRepository;
 
 public interface ProductRepository extends CrudRepository<ProductEntity, String> {

@@ -1,6 +1,6 @@
 package diegosneves.github.hexagonal.adapters.model;
 
-import diegosneves.github.hexagonal.enums.ProductStatus;
+import diegosneves.github.hexagonal.app.enums.ProductStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
