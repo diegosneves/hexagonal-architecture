@@ -36,7 +36,7 @@ public class Product implements ProductContract {
             throw new ProductException(ExceptionHandler.PRODUCT_ID_SHOULD_NOT_BE_NULL_OR_EMPTY);
         }
         this.isValidUUID();
-        if (isNull(this.productName) || this.productName.isBlank()){
+        if (isNull(this.productName) || this.productName.isBlank()) {
             throw new ProductException(ExceptionHandler.PRODUCT_NAME_SHOULD_NOT_BE_NULL_OR_EMPTY);
         }
         if (isNull(this.status)) {
@@ -54,12 +54,12 @@ public class Product implements ProductContract {
      * @throws ProductException Se o formato {@link UUID} é inválido.
      */
     private void isValidUUID() throws ProductException {
-    try {
-        UUID.fromString(this.id);
-    } catch (IllegalArgumentException ignored) {
-        throw new ProductException(ExceptionHandler.INVALID_UUID_FORMAT_MESSAGE, this.id);
+        try {
+            UUID.fromString(this.id);
+        } catch (IllegalArgumentException ignored) {
+            throw new ProductException(ExceptionHandler.INVALID_UUID_FORMAT_MESSAGE, this.id);
+        }
     }
-}
 
     @Override
     public void enable() throws ProductException {
@@ -70,7 +70,7 @@ public class Product implements ProductContract {
     }
 
     @Override
-    public void disable() throws ProductException{
+    public void disable() throws ProductException {
         if (this.productPrice > ZERO) {
             throw new ProductException(ExceptionHandler.PRICE_EQUAL_OR_LESS_THAN_ZERO);
         }
@@ -95,5 +95,15 @@ public class Product implements ProductContract {
     @Override
     public Double getPrice() {
         return this.productPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id='" + id + '\'' +
+                ", productName='" + productName + '\'' +
+                ", status=" + status +
+                ", productPrice=" + productPrice +
+                '}';
     }
 }

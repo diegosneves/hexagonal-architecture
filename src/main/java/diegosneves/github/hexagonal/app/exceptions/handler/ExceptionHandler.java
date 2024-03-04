@@ -16,6 +16,7 @@ public enum ExceptionHandler {
     INVALID_UUID_FORMAT_MESSAGE("O ID do Produto [%s] precisa ser no formato UUID"),
     PRODUCT_NOT_FOUND("O Produto de ID [%s] não foi encontrado."),
     PRODUCT_SHOULD_NOT_BE_NULL("O Produto não deve ser nulo"),
+    CLASS_MAPPING_FAILURE("Falha ao tentar mapear a classe [ %s ]."),
     PRODUCT_STATUS_SHOULD_NOT_BE_NULL("O Status do Produto não deve ser nulo");
 
     private final String message;

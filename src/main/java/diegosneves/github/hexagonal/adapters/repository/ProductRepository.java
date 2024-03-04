@@ -17,11 +17,11 @@ public interface ProductRepository extends ProductPersistenceContract, CrudRepos
 
     @Override
     default ProductContract get(String id) {
-        if (isNull(id)) {
+        if (isNull(id) || id.trim().isBlank()) {
             throw new ProductException(ExceptionHandler.PRODUCT_ID_SHOULD_NOT_BE_NULL_OR_EMPTY);
         }
         MapperStrategy<Product, ProductEntity> mapperStrategy = new ProductMapper();
-        ProductEntity productEntity = findById(id).orElseThrow(() -> new ProductException(ExceptionHandler.PRODUCT_NOT_FOUND, id));
+        ProductEntity productEntity = findById(id.trim()).orElseThrow(() -> new ProductException(ExceptionHandler.PRODUCT_NOT_FOUND, id.trim()));
         return mapperStrategy.mapper(productEntity);
     }
 
