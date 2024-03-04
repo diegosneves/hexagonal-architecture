@@ -17,7 +17,7 @@ public interface ProductRepository extends ProductPersistenceContract, CrudRepos
 
     @Override
     default ProductContract get(String id) {
-        if (isNull(id) || id.trim().isBlank()) {
+        if (isNull(id) || id.trim().isBlank() ) {
             throw new ProductException(ExceptionHandler.PRODUCT_ID_SHOULD_NOT_BE_NULL_OR_EMPTY);
         }
         MapperStrategy<Product, ProductEntity> mapperStrategy = new ProductMapper();

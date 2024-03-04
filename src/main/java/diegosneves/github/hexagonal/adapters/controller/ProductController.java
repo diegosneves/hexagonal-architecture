@@ -32,4 +32,15 @@ public class ProductController implements ProductControllerContract {
         return ResponseEntity.ok(response);
     }
 
+    @Override
+    public ResponseEntity<ProductResponse> enableProduct(String id) {
+        ProductResponse response = this.entityServiceContract.enable(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @Override
+    public ResponseEntity<ProductResponse> disableProduct(String id) {
+        ProductResponse response = this.entityServiceContract.disable(id);
+        return ResponseEntity.ok(response);
+    }
 }

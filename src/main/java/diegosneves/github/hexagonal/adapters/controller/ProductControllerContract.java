@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,5 +39,28 @@ public interface ProductControllerContract {
                     content = @Content)
     })
     ResponseEntity<ProductResponse> getById(@PathVariable("id") String id);
+    @PatchMapping(value = "enable/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(
+            summary = "Ativa o produto por meio de seu ID",
+            tags = "Hexagonal Architecture - Product")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Ativação do Produto",
+                    content = @Content)
+    })
+    ResponseEntity<ProductResponse> enableProduct(@PathVariable("id") String id);
+
+    @PatchMapping(value = "disable/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(
+            summary = "Desativa o produto por meio de seu ID",
+            tags = "Hexagonal Architecture - Product")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Desativação do Produto",
+                    content = @Content)
+    })
+    ResponseEntity<ProductResponse> disableProduct(@PathVariable("id") String id);
 
 }

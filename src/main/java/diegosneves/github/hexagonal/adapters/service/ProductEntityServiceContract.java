@@ -11,8 +11,8 @@ public interface ProductEntityServiceContract {
 
     ProductResponse create(ProductRequest request);
 
-    ProductResponse enable(ProductContract product);
+    ProductResponse enable(String id);
 
-    ProductResponse disable(ProductContract product);
+    ProductResponse disable(String id);
 
 }

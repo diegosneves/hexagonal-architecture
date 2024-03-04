@@ -73,6 +73,16 @@ class ProductRepositoryIntegrationTest {
     }
 
     @Test
+    void whenReceiveBlankIDThenThrowProductException() {
+        this.entityManager.persist(this.productEntity);
+        this.entityManager.flush();
+
+        ProductException exception = assertThrows(ProductException.class, () -> this.repository.get(" "));
+
+        assertEquals(ExceptionHandler.PRODUCT_ID_SHOULD_NOT_BE_NULL_OR_EMPTY.getMessage(), exception.getMessage());
+    }
+
+    @Test
     void whenSaveProductThenReturnSavedProduct() {
         Product product = new Product(PRODUCT_UUID, "Produto", 200.0);
 

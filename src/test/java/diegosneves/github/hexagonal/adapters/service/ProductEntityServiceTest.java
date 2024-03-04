@@ -8,6 +8,8 @@ import diegosneves.github.hexagonal.app.domain.product.entity.ProductContract;
 import diegosneves.github.hexagonal.app.enums.ProductStatus;
 import diegosneves.github.hexagonal.app.exceptions.ProductException;
 import diegosneves.github.hexagonal.app.exceptions.handler.ExceptionHandler;
+import diegosneves.github.hexagonal.app.service.ProductServiceContract;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,6 +20,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.lang.reflect.Field;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -146,6 +149,73 @@ class ProductEntityServiceTest {
 
         assertNotNull(exception);
         assertEquals(ExceptionHandler.PRODUCT_ID_SHOULD_NOT_BE_NULL_OR_EMPTY.getMessage(), exception.getMessage());
+    }
+
+    @Test
+    void shouldEnableProductAndReturnProductResponseWhenValidIdIsProvided() {
+        when(this.productRepository.save(any(ProductContract.class))).thenReturn(this.productContract);
+        when(this.productRepository.get(eq(PRODUCT_ID))).thenReturn(this.productContract);
+
+        ProductResponse response = this.service.enable(PRODUCT_ID);
+
+        verify(this.productRepository, times(1)).get(eq(PRODUCT_ID));
+        verify(this.productRepository, times(2)).save(this.productContractCaptor.capture());
+
+        ProductContract actual = this.productContractCaptor.getValue();
+        assertNotNull(response);
+        assertEquals(PRODUCT_ID, actual.getId());
+        assertEquals(ProductStatus.ENABLE, actual.getStatus());
+    }
+
+
+    @Test
+    void shouldThrowExceptionWhenAttemptingToEnableProductWithZeroPrice() {
+        this.productContract = new Product(PRODUCT_ID, "Product Name", 0.0);
+        when(this.productRepository.get(eq(PRODUCT_ID))).thenReturn(this.productContract);
+
+        ProductException exception = assertThrows(ProductException.class, () -> this.service.enable(PRODUCT_ID));
+
+        verify(this.productRepository, times(1)).get(eq(PRODUCT_ID));
+        verify(this.productRepository, never()).save(this.productContract);
+
+        assertNotNull(exception);
+        assertEquals(ExceptionHandler.PRICE_LESS_THAN_ZERO.getMessage(), exception.getMessage());
+    }
+
+    @Test
+    @SneakyThrows
+    void shouldDeactivateProductVerifyItAndReturnExpectedResponseForValidProductId() {
+        this.productContract.enable();
+        Field field = this.productContract.getClass().getDeclaredField("productPrice");
+        field.setAccessible(true);
+        field.set(this.productContract, 0.0);
+        when(this.productRepository.save(any(ProductContract.class))).thenReturn(this.productContract);
+        when(this.productRepository.get(eq(PRODUCT_ID))).thenReturn(this.productContract);
+
+        ProductResponse response = this.service.disable(PRODUCT_ID);
+
+        verify(this.productRepository, times(1)).get(eq(PRODUCT_ID));
+        verify(this.productRepository, times(2)).save(this.productContractCaptor.capture());
+
+        ProductContract actual = this.productContractCaptor.getValue();
+        assertNotNull(response);
+        assertEquals(PRODUCT_ID, actual.getId());
+        assertEquals(ProductStatus.DISABLE, actual.getStatus());
+    }
+
+
+    @Test
+    void shouldThrowProductExceptionWhenAttemptingToDisableProductWithNonFreePrice() {
+        this.productContract = new Product(PRODUCT_ID, "Product Name", 1.0);
+        when(this.productRepository.get(eq(PRODUCT_ID))).thenReturn(this.productContract);
+
+        ProductException exception = assertThrows(ProductException.class, () -> this.service.disable(PRODUCT_ID));
+
+        verify(this.productRepository, times(1)).get(eq(PRODUCT_ID));
+        verify(this.productRepository, never()).save(this.productContract);
+
+        assertNotNull(exception);
+        assertEquals(ExceptionHandler.PRICE_EQUAL_OR_LESS_THAN_ZERO.getMessage(), exception.getMessage());
     }
 
 }

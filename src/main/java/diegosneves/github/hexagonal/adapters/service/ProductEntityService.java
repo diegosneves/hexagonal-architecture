@@ -45,12 +45,20 @@ public class ProductEntityService implements ProductEntityServiceContract{
     }
 
     @Override
-    public ProductResponse enable(ProductContract product) {// TODO - Verificar a melhor assinatura para esse metodo
-        return null;
+    public ProductResponse enable(String id) {
+        ProductContract productContract = this.productRepository.get(id);
+        productContract = this.productServiceContract.enable(productContract);
+        MapperStrategy<ProductEntity, ProductContract> entityProductContractMapperStrategy = new ProductEntityMapper();
+        ProductEntity productEntity = entityProductContractMapperStrategy.mapper(this.productRepository.save(productContract));
+        return BuilderMapper.builderMapper(ProductResponse.class, productEntity);
     }
 
     @Override
-    public ProductResponse disable(ProductContract product) {// TODO - Verificar a melhor assinatura para esse metodo
-        return null;
+    public ProductResponse disable(String id) {
+        ProductContract productContract = this.productRepository.get(id);
+        productContract = this.productServiceContract.disable(productContract);
+        MapperStrategy<ProductEntity, ProductContract> entityProductContractMapperStrategy = new ProductEntityMapper();
+        ProductEntity productEntity = entityProductContractMapperStrategy.mapper(this.productRepository.save(productContract));
+        return BuilderMapper.builderMapper(ProductResponse.class, productEntity);
     }
 }
