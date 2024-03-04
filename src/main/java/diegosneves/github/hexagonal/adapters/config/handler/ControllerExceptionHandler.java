@@ -1,4 +1,4 @@
-package diegosneves.github.hexagonal.adapters.config;
+package diegosneves.github.hexagonal.adapters.config.handler;
 
 import diegosneves.github.hexagonal.adapters.dto.ExceptionDTO;
 import org.springframework.http.HttpStatus;
