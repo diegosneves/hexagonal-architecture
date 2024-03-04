@@ -1,4 +1,4 @@
-package diegosneves.github.hexagonal.app.mapper;
+package diegosneves.github.hexagonal.adapters.mapper;
 
 import diegosneves.github.hexagonal.adapters.model.ProductEntity;
 import diegosneves.github.hexagonal.app.domain.product.entity.ProductContract;

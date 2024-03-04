@@ -1,4 +1,4 @@
-package diegosneves.github.hexagonal.app.mapper;
+package diegosneves.github.hexagonal.adapters.mapper;
 
 public interface MapperStrategy <T, E> {
 

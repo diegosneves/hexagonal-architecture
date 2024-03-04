@@ -1,4 +1,4 @@
-package diegosneves.github.hexagonal.app.mapper;
+package diegosneves.github.hexagonal.adapters.mapper;
 
 import diegosneves.github.hexagonal.app.exceptions.MapperFailureException;
 import diegosneves.github.hexagonal.app.exceptions.handler.ExceptionHandler;

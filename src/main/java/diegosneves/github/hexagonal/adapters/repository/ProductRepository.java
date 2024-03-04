@@ -5,9 +5,9 @@ import diegosneves.github.hexagonal.app.domain.product.entity.Product;
 import diegosneves.github.hexagonal.app.domain.product.entity.ProductContract;
 import diegosneves.github.hexagonal.app.exceptions.ProductException;
 import diegosneves.github.hexagonal.app.exceptions.handler.ExceptionHandler;
-import diegosneves.github.hexagonal.app.mapper.MapperStrategy;
-import diegosneves.github.hexagonal.app.mapper.ProductEntityMapper;
-import diegosneves.github.hexagonal.app.mapper.ProductMapper;
+import diegosneves.github.hexagonal.adapters.mapper.MapperStrategy;
+import diegosneves.github.hexagonal.adapters.mapper.ProductEntityMapper;
+import diegosneves.github.hexagonal.adapters.mapper.ProductMapper;
 import diegosneves.github.hexagonal.app.repository.ProductPersistenceContract;
 import org.springframework.data.repository.CrudRepository;
 
