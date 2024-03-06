@@ -8,7 +8,6 @@ import diegosneves.github.hexagonal.app.domain.product.entity.ProductContract;
 import diegosneves.github.hexagonal.app.enums.ProductStatus;
 import diegosneves.github.hexagonal.app.exceptions.ProductException;
 import diegosneves.github.hexagonal.app.exceptions.handler.ExceptionHandler;
-import diegosneves.github.hexagonal.app.service.ProductServiceContract;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +16,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.lang.reflect.Field;
