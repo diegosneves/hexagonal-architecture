@@ -16,6 +16,7 @@ public enum QuestionHandler{
     DOUBLE {
         @Override
         public Object response(Scanner scanner, String question) {
+            scanner.nextLine();
             Double value = 0.0;
             System.out.printf(QUESTION_FORMAT, question);
             try {
@@ -30,6 +31,7 @@ public enum QuestionHandler{
     INTEGER {
         @Override
         public Object response(Scanner scanner, String question) {
+            scanner.nextLine();
             Integer value = 0;
             System.out.printf(QUESTION_FORMAT, question);
             try {

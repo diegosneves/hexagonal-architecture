@@ -9,7 +9,7 @@ package diegosneves.github.hexagonal.app.exceptions.handler;
  */
 public enum ExceptionHandler {
 
-    PRICE_LESS_THAN_ZERO("O preço do Produto deve ser igual ou maior que zero"),
+    PRICE_LESS_THAN_ZERO("O preço do Produto deve ser maior que zero"),
     PRICE_EQUAL_OR_LESS_THAN_ZERO("O preço do Produto deve ser igual ou menor que zero"),
     PRODUCT_ID_SHOULD_NOT_BE_NULL_OR_EMPTY("O ID do Produto não deve ser vazio ou nulo"),
     PRODUCT_NAME_SHOULD_NOT_BE_NULL_OR_EMPTY("O Nome do Produto não deve ser vazio ou nulo"),
