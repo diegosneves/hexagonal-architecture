@@ -307,6 +307,108 @@ ProductWriter  ..>  ProductContract
 #### CLI
 
 ```mermaid
+classDiagram
+direction BT
+class Application {
+  + Application() 
+  + main(String[]) void
+}
+class Entity~T~ {
+<<Interface>>
+  + serialize() String
+  + deserialize(String[]) T
+}
+class Menu {
+  + Menu() 
+  - ProductEntityService productEntityService
+  - String MENU_DIVIDER
+  - String NEW_LINE
+  - String SINGLE_OPTION
+  - String MENU_MESSAGE
+  - String MENU_OPTION_SEPARATOR
+  - int MENU_DIVIDER_SIZE
+  - String TOTAL_OPTIONS
+  + displayMenu() void
+  - optionBuilder(Scanner, String[]) int
+}
+class ProductEntity {
+  + ProductEntity(String, String, ProductStatus, Double) 
+  + ProductEntity() 
+  - String id
+  + String FIELD_SEPARATOR
+  - ProductStatus status
+  - String productName
+  - Double productPrice
+  + serialize() String
+  + deserialize(String[]) ProductEntity
+  + toString() String
+  + getProductPrice() Double
+  + getStatus() ProductStatus
+  + getId() String
+  + getProductName() String
+}
+class ProductEntityDTO {
+  + ProductEntityDTO(String, String, ProductStatus, Double) 
+  + ProductEntityDTO() 
+  - String id
+  - String productName
+  - Double productPrice
+  - ProductStatus status
+  + getStatus() ProductStatus
+  + getId() String
+  + getProductPrice() Double
+  + getProductName() String
+  + toString() String
+}
+class ProductEntityRepository {
+<<Interface>>
+
+}
+class ProductEntityRepositoryImpl {
+  + ProductEntityRepositoryImpl() 
+  - String FILE_PATH
+  + save(ProductContract) ProductContract
+  + get(String) ProductContract
+}
+class ProductEntityService {
+<<Interface>>
+  + get(String) ProductEntityDTO
+  + enable(String) ProductEntityDTO
+  + create(String, Double) ProductEntityDTO
+  + disable(String) ProductEntityDTO
+}
+class ProductServiceImpl {
+  + ProductServiceImpl() 
+  - ProductEntityRepository repository
+  + disable(String) ProductEntityDTO
+  + create(String, Double) ProductEntityDTO
+  + get(String) ProductEntityDTO
+  + enable(String) ProductEntityDTO
+}
+class QuestionHandler {
+<<enumeration>>
+  + QuestionHandler() 
+  +  INTEGER
+  +  DOUBLE
+  - String QUESTION_FORMAT
+  +  STRING
+  + response(Scanner, String) Object
+}
+
+Application  ..>  Menu 
+Menu  ..>  ProductEntityDTO 
+Menu "1" *--> "productEntityService 1" ProductEntityService 
+Menu  ..>  ProductServiceImpl 
+Menu  ..>  QuestionHandler 
+ProductEntity  ..>  Entity~T~ 
+ProductEntityRepositoryImpl  ..>  ProductEntity 
+ProductEntityRepositoryImpl  ..>  ProductEntityRepository 
+ProductEntityService  ..>  ProductEntityDTO 
+ProductServiceImpl  ..>  ProductEntity 
+ProductServiceImpl  ..>  ProductEntityDTO 
+ProductServiceImpl "1" *--> "repository 1" ProductEntityRepository 
+ProductServiceImpl  ..>  ProductEntityRepositoryImpl 
+ProductServiceImpl  ..>  ProductEntityService 
 
 ```
 
