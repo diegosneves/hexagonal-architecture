@@ -152,7 +152,6 @@ ProductEntityService  ..>  ProductResponse
 ProductEntityServiceContract  ..>  ProductRequest 
 ProductEntityServiceContract  ..>  ProductResponse 
 ProductRepository  ..>  ProductEntity 
-
 ```
 
 ---
@@ -181,8 +180,6 @@ class ExceptionHandler {
   +  PRODUCT_STATUS_SHOULD_NOT_BE_NULL
   + getMessage() String
   + getMessage(String) String
-  + values() ExceptionHandler[]
-  + valueOf(String) ExceptionHandler
 }
 class MapperFailureException {
   + MapperFailureException(ExceptionHandler, String) 
@@ -264,9 +261,7 @@ class ProductStatus {
   + ProductStatus() 
   +  ENABLE
   +  DISABLE
-  + valueOf(String) ProductStatus
   + toString() String
-  + values() ProductStatus[]
 }
 class ProductWriter {
 <<Interface>>
@@ -306,7 +301,6 @@ ProductService  ..>  ProductWriter
 ProductServiceContract  ..>  ProductContract 
 ProductServiceContract  ..>  ProductException 
 ProductWriter  ..>  ProductContract 
-
 ```
 
 ---
