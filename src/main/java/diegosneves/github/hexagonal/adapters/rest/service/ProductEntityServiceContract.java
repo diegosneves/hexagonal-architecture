@@ -2,7 +2,6 @@ package diegosneves.github.hexagonal.adapters.rest.service;
 
 import diegosneves.github.hexagonal.adapters.rest.request.ProductRequest;
 import diegosneves.github.hexagonal.adapters.rest.response.ProductResponse;
-import diegosneves.github.hexagonal.app.domain.product.entity.ProductContract;
 import diegosneves.github.hexagonal.app.exceptions.ProductException;
 
 public interface ProductEntityServiceContract {
