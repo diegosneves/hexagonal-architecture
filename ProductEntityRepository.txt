@@ -1,0 +1,2 @@
+7812c39f-1b3c-4419-8666-d02b15913228;Teste;10.0;disable
+04dfd14a-80fb-49d8-a658-c62938263110;Produto;15.0;enable

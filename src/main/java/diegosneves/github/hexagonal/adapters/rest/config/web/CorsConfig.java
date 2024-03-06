@@ -1,4 +1,4 @@
-package diegosneves.github.hexagonal.infrastructure.web;
+package diegosneves.github.hexagonal.adapters.rest.config.web;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
