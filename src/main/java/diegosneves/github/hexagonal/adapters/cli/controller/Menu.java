@@ -1,6 +1,9 @@
 package diegosneves.github.hexagonal.adapters.cli.controller;
 
+import diegosneves.github.hexagonal.adapters.cli.dto.ProductEntityDTO;
 import diegosneves.github.hexagonal.adapters.cli.enums.QuestionHandler;
+import diegosneves.github.hexagonal.adapters.cli.service.ProductEntityService;
+import diegosneves.github.hexagonal.adapters.cli.service.impl.ProductServiceImpl;
 
 import java.util.Scanner;
 
@@ -35,6 +38,12 @@ public class Menu {
     private static final String MENU_OPTION_SEPARATOR = " - ";
     private static final int MENU_DIVIDER_SIZE = 50;
 
+    private final ProductEntityService productEntityService;
+
+    public Menu() {
+        this.productEntityService = new ProductServiceImpl();
+    }
+
     public void displayMenu() {
         boolean isOn = Boolean.TRUE;
         Scanner scanner = new Scanner(System.in);
@@ -50,24 +59,27 @@ public class Menu {
                 case 1:
                     System.out.println("Obter Produto por ID");
                     String id = (String) QuestionHandler.STRING.response(scanner, "Informe o ID desejado");
-                    System.out.println(id);
+                    ProductEntityDTO product = this.productEntityService.get(id);
+                    System.out.println(product);
                     break;
                 case 2:
                     System.out.println("Criar um produto");
                     String productName = (String) QuestionHandler.STRING.response(scanner, "Informe o nome do Produto");
                     Double productPrice = (Double) QuestionHandler.DOUBLE.response(scanner, "Informe o preço do Produto");
-                    System.out.println(productName);
-                    System.out.println(productPrice);
+                    ProductEntityDTO createdProduct = this.productEntityService.create(productName, productPrice);
+                    System.out.println(createdProduct);
                     break;
                 case 3:
                     System.out.println("Ativar Produto por ID");
                     String ativarId = (String) QuestionHandler.STRING.response(scanner, "Informe o ID do Produto para ativação");
-                    System.out.println(ativarId);
+                    ProductEntityDTO enabledProduct = this.productEntityService.enable(ativarId);
+                    System.out.println(enabledProduct);
                     break;
                 case 4:
                     System.out.println("Desativar Produto por ID");
                     String desativaId = (String) QuestionHandler.STRING.response(scanner, "Informe o ID do Produto para desativação");
-                    System.out.println(desativaId);
+                    ProductEntityDTO disabledProduct = this.productEntityService.disable(desativaId);
+                    System.out.println(disabledProduct);
                     break;
                 case 5:
                     isOn = Boolean.FALSE;
@@ -85,7 +97,7 @@ public class Menu {
         int option = 0;
         StringBuilder sb = new StringBuilder(MENU_DIVIDER.repeat(MENU_DIVIDER_SIZE)).append(NEW_LINE);
         for (int i = 0; i < options.length; i++) {
-            if (i == options.length -1) {
+            if (i == options.length - 1) {
                 sb.append(i + 1).append(MENU_OPTION_SEPARATOR).append(options[i]).append(NEW_LINE).append(MENU_DIVIDER.repeat(MENU_DIVIDER_SIZE));
             } else {
                 sb.append(i + 1).append(MENU_OPTION_SEPARATOR).append(options[i]).append(NEW_LINE);
