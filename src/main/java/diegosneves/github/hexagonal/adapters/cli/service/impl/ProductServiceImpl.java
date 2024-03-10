@@ -13,6 +13,17 @@ import diegosneves.github.hexagonal.app.mapper.BuilderMapper;
 import diegosneves.github.hexagonal.app.mapper.MapperStrategy;
 import diegosneves.github.hexagonal.app.mapper.ProductEntityCLIMapper;
 
+/**
+ * A classe {@link ProductServiceImpl} implementa a interface {@link ProductEntityService} e fornece métodos
+ * para recuperar, criar, ativar e desativar entidades de produtos.
+ * <p>
+ * Este serviço interage com um repositório para persistir e recuperar informações do produto. Utiliza padrões e estratégias de mapeamento
+ * para converter entre {@link ProductEntity}, {@link ProductContract} e {@link ProductEntityDTO}.
+ * <p>
+ * As operações de ativação e desativação são suportadas, permitindo o controle do estado de disponibilidade do produto.
+ *
+ * @author diegosneves
+ */
 public class ProductServiceImpl implements ProductEntityService {
 
     private final ProductEntityRepository repository;

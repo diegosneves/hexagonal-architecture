@@ -8,6 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * A classe {@link ProductController} é responsável por lidar com requisições HTTP relacionadas a produtos.
+ * Implementa a interface {@link ProductControllerContract}, que define métodos para criar, recuperar, habilitar e desabilitar um produto.
+ * Essa classe usa o {@link ProductEntityServiceContract} para realizar as operações reais nas entidades de produto.
+ *
+ * @author diegosneves
+ */
 @RestController
 @RequestMapping("/adapter")
 public class ProductController implements ProductControllerContract {

@@ -26,7 +26,7 @@ import java.util.Scanner;
  * <p>
  * <b>Vale ressaltar que esta é apenas uma classe de exemplo para fins didáticos e, portanto, não segue necessariamente as melhores práticas de desenvolvimento de software.</b>
  *
- * @author diegoneves
+ * @author diegosneves
  */
 public class Menu {
 
@@ -44,6 +44,18 @@ public class Menu {
         this.productEntityService = new ProductServiceImpl();
     }
 
+    /**
+     * Exibe as opções do menu e lida com a entrada do usuário. As opções são listadas na seguinte ordem:
+     * <pre>{@code
+     * 1. Obter produto por ID: Solicita ao usuário o ID do produto e exibe as informações do produto correspondente.
+     * 2. Criar um produto: Solicita ao usuário os detalhes do produto (como nome e preço) e cria um novo produto.
+     * 3. Ativar produto por ID: Solicita ao usuário o ID do produto e ativa o produto correspondente.
+     * 4. Desativar produto por ID: Solicita ao usuário o ID do produto e desativa o produto correspondente.
+     * 5. Sair: Encerra o menu.
+     * }</pre>
+     * <p>
+     * Se a entrada do usuário for inválida, uma mensagem de erro é exibida.
+     */
     public void displayMenu() {
         boolean isOn = Boolean.TRUE;
         Scanner scanner = new Scanner(System.in);
@@ -93,6 +105,13 @@ public class Menu {
         scanner.close();
     }
 
+    /**
+     * Builds a menu option from the provided options and handles user input.
+     *
+     * @param scanner The scanner object used to get user input.
+     * @param options The list of options to display in the menu.
+     * @return The selected menu option.
+     */
     private int optionBuilder(Scanner scanner, String... options) {
         int option = 0;
         StringBuilder sb = new StringBuilder(MENU_DIVIDER.repeat(MENU_DIVIDER_SIZE)).append(NEW_LINE);

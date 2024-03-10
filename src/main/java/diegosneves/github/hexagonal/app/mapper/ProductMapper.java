@@ -5,6 +5,11 @@ import diegosneves.github.hexagonal.app.domain.product.entity.Product;
 
 import java.lang.reflect.Field;
 
+/**
+ * A classe {@link ProductMapper} implementa a interface {@link MapperStrategy} para definir uma estratégia de mapeamento entre um objeto {@link Product} e um objeto {@link ProductEntity}.
+ *
+ * @author diegosneves
+ */
 public class ProductMapper implements MapperStrategy<Product, ProductEntity> {
 
     private static final String STATUS_FIELD = "status";

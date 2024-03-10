@@ -7,6 +7,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Representa um objeto de resposta que contém informações sobre um produto.
+ *
+ * @author diegosneves
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

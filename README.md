@@ -1,4 +1,6 @@
-# Arquitetura Hexagonal
+# Arquitetura Hexagonal 
+[![CI Develop](https://github.com/diegosneves/hexagonal-architecture/actions/workflows/ci-develop.yaml/badge.svg)](https://github.com/diegosneves/hexagonal-architecture/actions/workflows/ci-develop.yaml)
+[![wakatime](https://wakatime.com/badge/user/018bea20-dbbc-48e2-b101-5415903acf5a/project/018d6c68-6a0d-455d-b172-3016d1867673.svg)](https://wakatime.com/@diegosneves)
 
 Conhecida também como **Ports and Adapters**, a Arquitetura Hexagonal é um padrão de design arquitetural focado em
 desenvolver aplicações de maneira que não dependam de tecnologias específicas usadas em camadas de interface de usuário
@@ -14,13 +16,170 @@ Essa estrutura permite que a aplicação seja mais mantida, testada e potenciali
 na interface de usuário ou na persistência de dados afetem minimamente a lógica de negócio central.
 
 ---
+# Como Configurar e Executar o Projeto na Sua IDE
 
+Este projeto utiliza o padrão `REST` com Spring e `Java puro`. Aqui estão as etapas para configurá-lo e executá-lo na sua IDE:
+
+## Pré-requisitos
+
+1. **Java:** Este projeto é baseado em Java, então, você precisará ter ele instalado no seu sistema.
+
+2. **IDE compatível:** Você vai precisar de uma IDE compatível com Java e Spring, como o IntelliJ IDEA ou o Eclipse.
+
+## Configuração do Projeto
+
+1. Clone o projeto do repositório GitHub para a sua máquina local usando o seguinte comando no terminal:
+
+    ```shell
+    git clone git@github.com:diegosneves/hexagonal-architecture.git
+    ```
+
+2. Abra a sua IDE de escolha e importe o projeto clonado. Geralmente, isso pode ser realizado selecionando `File -> Open` e navegando até o diretório do projeto.
+
+3. Certifique-se de que sua IDE reconheceu corretamente o projeto como um projeto `Maven` e que todas as dependências necessárias foram baixadas corretamente.
+
+## Execução do Projeto com Java puro
+
+O projeto utiliza Spring Boot, o que simplifica a sua execução. No pacote `CLI`, você irá encontrar o ponto de entrada para o projeto. Aqui estão as etapas para rodá-lo:
+
+1. Navegue até o diretório `src/main/java/diegosneves/github/hexagonal/adapters/` no pacote `CLI`.
+
+2. Procure pela classe `Application.java` com o método `main()`. Esta é a classe principal que inicia a aplicação.
+
+3. Clique com o botão direito na classe e selecione a opção `Run` para executar o projeto.
+
+#### CLI
+
+```mermaid
+classDiagram
+direction BT
+class Application {
+  + Application() 
+  + main(String[]) void
+}
+class Entity~T~ {
+<<Interface>>
+  + serialize() String
+  + deserialize(String[]) T
+}
+class Menu {
+  + Menu() 
+  - ProductEntityService productEntityService
+  - String MENU_DIVIDER
+  - String NEW_LINE
+  - String SINGLE_OPTION
+  - String MENU_MESSAGE
+  - String MENU_OPTION_SEPARATOR
+  - int MENU_DIVIDER_SIZE
+  - String TOTAL_OPTIONS
+  + displayMenu() void
+  - optionBuilder(Scanner, String[]) int
+}
+class ProductEntity {
+  + ProductEntity(String, String, ProductStatus, Double) 
+  + ProductEntity() 
+  - String id
+  + String FIELD_SEPARATOR
+  - ProductStatus status
+  - String productName
+  - Double productPrice
+  + serialize() String
+  + deserialize(String[]) ProductEntity
+  + toString() String
+  + getProductPrice() Double
+  + getStatus() ProductStatus
+  + getId() String
+  + getProductName() String
+}
+class ProductEntityDTO {
+  + ProductEntityDTO(String, String, ProductStatus, Double) 
+  + ProductEntityDTO() 
+  - String id
+  - String productName
+  - Double productPrice
+  - ProductStatus status
+  + getStatus() ProductStatus
+  + getId() String
+  + getProductPrice() Double
+  + getProductName() String
+  + toString() String
+}
+class ProductEntityRepository {
+<<Interface>>
+
+}
+class ProductEntityRepositoryImpl {
+  + ProductEntityRepositoryImpl() 
+  - String FILE_PATH
+  + save(ProductContract) ProductContract
+  + get(String) ProductContract
+}
+class ProductEntityService {
+<<Interface>>
+  + get(String) ProductEntityDTO
+  + enable(String) ProductEntityDTO
+  + create(String, Double) ProductEntityDTO
+  + disable(String) ProductEntityDTO
+}
+class ProductServiceImpl {
+  + ProductServiceImpl() 
+  - ProductEntityRepository repository
+  + disable(String) ProductEntityDTO
+  + create(String, Double) ProductEntityDTO
+  + get(String) ProductEntityDTO
+  + enable(String) ProductEntityDTO
+}
+class QuestionHandler {
+<<enumeration>>
+  + QuestionHandler() 
+  +  INTEGER
+  +  DOUBLE
+  - String QUESTION_FORMAT
+  +  STRING
+  + response(Scanner, String) Object
+}
+
+Application  ..>  Menu 
+Menu  ..>  ProductEntityDTO 
+Menu "1" *--> "productEntityService 1" ProductEntityService 
+Menu  ..>  ProductServiceImpl 
+Menu  ..>  QuestionHandler 
+ProductEntity  ..>  Entity~T~ 
+ProductEntityRepositoryImpl  ..>  ProductEntity 
+ProductEntityRepositoryImpl  ..>  ProductEntityRepository 
+ProductEntityService  ..>  ProductEntityDTO 
+ProductServiceImpl  ..>  ProductEntity 
+ProductServiceImpl  ..>  ProductEntityDTO 
+ProductServiceImpl "1" *--> "repository 1" ProductEntityRepository 
+ProductServiceImpl  ..>  ProductEntityRepositoryImpl 
+ProductServiceImpl  ..>  ProductEntityService 
+
+```
+
+---
+
+## Utilização da API REST
+
+Para garantir o funcionamento correto da API, é importante seguir os passos abaixo em ordem:
+
+1. #### Subindo o Banco de Dados
+   Primeiro, precisamos subir o banco de dados. Este projeto já inclui um arquivo Docker Compose que configura o banco de dados para você. Para subir o banco de dados, abra um terminal na pasta raiz do projeto e execute o seguinte comando:
+
+  ```shell
+  docker compose up -d
+  ```
+
+2. #### Iniciando a API
+   Agora que nosso banco de dados está em funcionamento, podemos iniciar nossa API. A API é construída com o Spring Boot, o que simplifica o processo de inicialização.
+
+Lembre-se, a ordem desses passos é importante! O banco de dados deve ser iniciado antes da API para garantir que todas as tabelas e conexões estejam corretamente configuradas quando a API for iniciada.
+
+Esperamos que estas instruções ajudem você a configurar corretamente este projeto na sua IDE. Caso encontre qualquer problema, sinta-se à vontade para abrir uma "issue" no projeto no GitHub.
 ## Swagger
 
 - [Swagger - Local](http://localhost:8080/swagger-ui/index.html)
 - [Api - Docs](http://localhost:8080/v3/api-docs)
 
----
 
 #### API - Rest
 ```mermaid
@@ -301,115 +460,6 @@ ProductService  ..>  ProductWriter
 ProductServiceContract  ..>  ProductContract 
 ProductServiceContract  ..>  ProductException 
 ProductWriter  ..>  ProductContract 
-```
-
----
-#### CLI
-
-```mermaid
-classDiagram
-direction BT
-class Application {
-  + Application() 
-  + main(String[]) void
-}
-class Entity~T~ {
-<<Interface>>
-  + serialize() String
-  + deserialize(String[]) T
-}
-class Menu {
-  + Menu() 
-  - ProductEntityService productEntityService
-  - String MENU_DIVIDER
-  - String NEW_LINE
-  - String SINGLE_OPTION
-  - String MENU_MESSAGE
-  - String MENU_OPTION_SEPARATOR
-  - int MENU_DIVIDER_SIZE
-  - String TOTAL_OPTIONS
-  + displayMenu() void
-  - optionBuilder(Scanner, String[]) int
-}
-class ProductEntity {
-  + ProductEntity(String, String, ProductStatus, Double) 
-  + ProductEntity() 
-  - String id
-  + String FIELD_SEPARATOR
-  - ProductStatus status
-  - String productName
-  - Double productPrice
-  + serialize() String
-  + deserialize(String[]) ProductEntity
-  + toString() String
-  + getProductPrice() Double
-  + getStatus() ProductStatus
-  + getId() String
-  + getProductName() String
-}
-class ProductEntityDTO {
-  + ProductEntityDTO(String, String, ProductStatus, Double) 
-  + ProductEntityDTO() 
-  - String id
-  - String productName
-  - Double productPrice
-  - ProductStatus status
-  + getStatus() ProductStatus
-  + getId() String
-  + getProductPrice() Double
-  + getProductName() String
-  + toString() String
-}
-class ProductEntityRepository {
-<<Interface>>
-
-}
-class ProductEntityRepositoryImpl {
-  + ProductEntityRepositoryImpl() 
-  - String FILE_PATH
-  + save(ProductContract) ProductContract
-  + get(String) ProductContract
-}
-class ProductEntityService {
-<<Interface>>
-  + get(String) ProductEntityDTO
-  + enable(String) ProductEntityDTO
-  + create(String, Double) ProductEntityDTO
-  + disable(String) ProductEntityDTO
-}
-class ProductServiceImpl {
-  + ProductServiceImpl() 
-  - ProductEntityRepository repository
-  + disable(String) ProductEntityDTO
-  + create(String, Double) ProductEntityDTO
-  + get(String) ProductEntityDTO
-  + enable(String) ProductEntityDTO
-}
-class QuestionHandler {
-<<enumeration>>
-  + QuestionHandler() 
-  +  INTEGER
-  +  DOUBLE
-  - String QUESTION_FORMAT
-  +  STRING
-  + response(Scanner, String) Object
-}
-
-Application  ..>  Menu 
-Menu  ..>  ProductEntityDTO 
-Menu "1" *--> "productEntityService 1" ProductEntityService 
-Menu  ..>  ProductServiceImpl 
-Menu  ..>  QuestionHandler 
-ProductEntity  ..>  Entity~T~ 
-ProductEntityRepositoryImpl  ..>  ProductEntity 
-ProductEntityRepositoryImpl  ..>  ProductEntityRepository 
-ProductEntityService  ..>  ProductEntityDTO 
-ProductServiceImpl  ..>  ProductEntity 
-ProductServiceImpl  ..>  ProductEntityDTO 
-ProductServiceImpl "1" *--> "repository 1" ProductEntityRepository 
-ProductServiceImpl  ..>  ProductEntityRepositoryImpl 
-ProductServiceImpl  ..>  ProductEntityService 
-
 ```
 
 ---
