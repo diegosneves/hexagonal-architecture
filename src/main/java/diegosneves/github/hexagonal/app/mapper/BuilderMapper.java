@@ -5,6 +5,11 @@ import diegosneves.github.hexagonal.app.exceptions.handler.ExceptionHandler;
 
 import java.lang.reflect.Field;
 
+/**
+ * A interface BuilderMapper fornece métodos para mapear campos de um objeto de origem para um objeto de destino.
+ *
+ * @author diegosneves
+ */
 public interface BuilderMapper {
 
     /**

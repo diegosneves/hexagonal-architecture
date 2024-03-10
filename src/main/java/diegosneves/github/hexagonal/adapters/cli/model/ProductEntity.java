@@ -3,6 +3,15 @@ package diegosneves.github.hexagonal.adapters.cli.model;
 import diegosneves.github.hexagonal.adapters.cli.repository.Entity;
 import diegosneves.github.hexagonal.app.enums.ProductStatus;
 
+/**
+ * Representa uma entidade de produto.
+ *
+ * <p>Fornece um modelo para representar dados de {@link diegosneves.github.hexagonal.app.domain.product.entity.Product Produto} em uma arquitetura orientada a objeto.
+ * Esta classe possui também métodos para serialização e desserialização dos dados.
+ * Padrão Builder é usado para a criação da instância de uma maneira mais limpa e entendível.
+ *
+ * @author diegosneves
+ */
 public class ProductEntity implements Entity<ProductEntity> {
 
     public static final String FIELD_SEPARATOR = ";";
@@ -38,35 +47,70 @@ public class ProductEntity implements Entity<ProductEntity> {
     }
 
 
+    /**
+     * Classe Builder para criação de instâncias de ProductEntity.
+     */
     public static class Builder {
         private String id;
         private String productName;
         private ProductStatus status;
         private Double productPrice;
 
+        /**
+         * Construtor padrão do builder.
+         */
         public Builder() {
         }
 
+        /**
+         * Define o id do produto.
+         *
+         * @param id String que especifica o identificador do produto.
+         * @return Retorna a instância atualizada do Builder.
+         */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
 
+        /**
+         * Define o nome do produto.
+         *
+         * @param productName String especificando o nome do produto.
+         * @return Retorna a instância atualizada do Builder.
+         */
         public Builder productName(String productName) {
             this.productName = productName;
             return this;
         }
 
+        /**
+         * Define o preço do produto.
+         *
+         * @param productPrice Double que representa o preço do produto.
+         * @return Retorna a instância atualizada do Builder.
+         */
         public Builder productPrice(Double productPrice) {
             this.productPrice = productPrice;
             return this;
         }
 
+        /**
+         * Define o status do produto.
+         *
+         * @param status Enum ProductStatus definindo o status do produto.
+         * @return Retorna a instância atualizada do Builder.
+         */
         public Builder status(ProductStatus status) {
             this.status = status;
             return this;
         }
 
+        /**
+         * Cria uma nova instância de {@link ProductEntity}.
+         *
+         * @return Retorna uma nova instância de {@link ProductEntity}.
+         */
         public ProductEntity build() {
             return new ProductEntity(this.id, this.productName, this.status, this.productPrice);
         }

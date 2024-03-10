@@ -13,6 +13,15 @@ import org.springframework.data.repository.CrudRepository;
 
 import static java.util.Objects.isNull;
 
+/**
+ * A interface {@link ProductRepository} estende as interfaces {@link ProductPersistenceContract} e {@link CrudRepository}.
+ * Ela fornece métodos para recuperação e gravação de produtos.
+ *
+ * @see ProductPersistenceContract
+ * @see CrudRepository
+ *
+ * @autor diegosneves
+ */
 public interface ProductRepository extends ProductPersistenceContract, CrudRepository<ProductEntity, String> {
 
     @Override
