@@ -10,6 +10,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * A classe {@link ProductEntity} representa uma entidade de {@link diegosneves.github.hexagonal.app.domain.product.entity.Product produto} no sistema.
+ * Ela é anotada com @Entity para indicar que é uma entidade no banco de dados,
+ * e @Table para especificar o nome da tabela no banco de dados.
+ * Possui campos para o id do produto, nome, status e preço.
+ * A classe também inclui construtores, getters, setters e um padrão de construtor (builder).
+ *
+ * @author diegosneves
+ */
 @Entity
 @Table(name = "products")
 @AllArgsConstructor

@@ -160,12 +160,21 @@ ProductServiceImpl  ..>  ProductEntityService
 
 ## Utilização da API REST
 
-O projeto utiliza Spring Boot, o que simplifica a sua execução. Com o servidor agora em execução, você será capaz de interagir com a API REST por meio de protocolo HTTP. As operações de CRUD (Criar, Ler, Atualizar, Deletar) são geralmente mapeadas para os métodos HTTP POST, GET, PUT e DELETE respectivamente. 
+Para garantir o funcionamento correto da API, é importante seguir os passos abaixo em ordem:
 
-Utilize o [swagger](#swagger), para enviar solicitações à API e receber respostas.
+1. #### Subindo o Banco de Dados
+   Primeiro, precisamos subir o banco de dados. Este projeto já inclui um arquivo Docker Compose que configura o banco de dados para você. Para subir o banco de dados, abra um terminal na pasta raiz do projeto e execute o seguinte comando:
 
-Esperamos que estas instruções auxiliem você a iniciar e configurar este projeto na sua IDE. Caso encontre qualquer problema, sinta-se à vontade para abrir uma "issue" no projeto no GitHub.
+  ```shell
+  docker compose up -d
+  ```
 
+2. #### Iniciando a API
+   Agora que nosso banco de dados está em funcionamento, podemos iniciar nossa API. A API é construída com o Spring Boot, o que simplifica o processo de inicialização.
+
+Lembre-se, a ordem desses passos é importante! O banco de dados deve ser iniciado antes da API para garantir que todas as tabelas e conexões estejam corretamente configuradas quando a API for iniciada.
+
+Esperamos que estas instruções ajudem você a configurar corretamente este projeto na sua IDE. Caso encontre qualquer problema, sinta-se à vontade para abrir uma "issue" no projeto no GitHub.
 ## Swagger
 
 - [Swagger - Local](http://localhost:8080/swagger-ui/index.html)

@@ -14,6 +14,13 @@ import diegosneves.github.hexagonal.app.service.ProductServiceContract;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * A classe {@link ProductEntityService} é responsável pelo gerenciamento dos objetos {@link ProductEntity ProductEntity}. Isto inclui
+ * operações como: recuperação, criação, ativação e desativação desses objetos. Esta classe implementa a
+ * interface {@link ProductEntityServiceContract}.
+ *
+ * @author diegosneves
+ */
 @Service
 public class ProductEntityService implements ProductEntityServiceContract{
 
