@@ -2,6 +2,12 @@ package diegosneves.github.hexagonal.adapters.cli.dto;
 
 import diegosneves.github.hexagonal.app.enums.ProductStatus;
 
+/**
+ * A classe {@link ProductEntityDTO} representa um objeto de transferência de dados (DTO) para uma entidade de produto.
+ * Ela contém as informações básicas de um {@link diegosneves.github.hexagonal.adapters.cli.model.ProductEntity produto}, como ID, nome, status e preço.
+ *
+ * @author diegosneves
+ */
 public class ProductEntityDTO {
 
     private String id;

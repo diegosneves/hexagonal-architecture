@@ -20,6 +20,13 @@ import java.util.List;
 
 import static java.util.Objects.isNull;
 
+/**
+ * A classe {@link ProductEntityRepositoryImpl} implementa a interface {@link ProductEntityRepository} e fornece
+ * métodos para gerenciar operações de persistência para produtos.
+ * Esta classe realiza a leitura e a gravação de entidades de produto em um arquivo de texto.
+ *
+ * @author diegosneves
+ */
 public class ProductEntityRepositoryImpl implements ProductEntityRepository {
 
     private static final String FILE_PATH = "ProductEntityRepository.txt";
